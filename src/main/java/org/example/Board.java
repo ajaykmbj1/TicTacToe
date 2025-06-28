@@ -18,6 +18,10 @@ public class Board {
         }
     }
 
+    public char getCell(int x, int y){
+        return cells[x][y];
+    }
+
     public void clear() {
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++)
