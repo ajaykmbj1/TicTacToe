@@ -28,7 +28,7 @@ public class BoardTest {
     void testPrintBoardShowsCorrectState(){
         Board board = new Board();
         board.place(0,0,'X');
-        board.place(1,1,'Y');
+        board.place(1,1,'O');
 
         String expected =
                 "━━━━━━━\n" +
