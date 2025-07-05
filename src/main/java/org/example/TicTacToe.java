@@ -27,6 +27,21 @@ public class TicTacToe {
 
             if (board.isCellEmpty(row, col)) {
                 board.place(row, col, currentPlayer.getMarker());
+
+                // Check for win
+                if (board.checkWin(currentPlayer.getMarker())) {
+                    board.print();
+                    System.out.println("Player " + currentPlayer.getMarker() + " wins!");
+                    break;
+                }
+
+                // Check for draw
+                if (board.isFull()) {
+                    board.print();
+                    System.out.println("It's a draw!");
+                    break;
+                }
+
                 switchCurrentPlayer();
             } else {
                 System.out.println("Cell is not empty, try again.");
