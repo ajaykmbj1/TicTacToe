@@ -16,35 +16,46 @@ public class TicTacToe {
 
     public void start() {
         Scanner scanner = new Scanner(System.in);
-        while (true) {
-            System.out.println("Current Player: " + currentPlayer.getMarker());
-            board.print();
 
-            System.out.print("row (0-2): ");
-            int row = scanner.nextInt();
-            System.out.print("column (0-2): ");
-            int col = scanner.nextInt();
+        while (true) {  // Spielwiederholungsschleife
+            board.clear();
+            currentPlayer = player1;
 
-            if (board.isCellEmpty(row, col)) {
-                board.place(row, col, currentPlayer.getMarker());
+            while (true) {  // Eine Spielrunde
+                System.out.println("Current Player: " + currentPlayer.getMarker());
+                board.print();
 
-                // Check for win
-                if (board.checkWin(currentPlayer.getMarker())) {
-                    board.print();
-                    System.out.println("Player " + currentPlayer.getMarker() + " wins!");
-                    break;
+                System.out.print("row (0-2): ");
+                int row = scanner.nextInt();
+                System.out.print("column (0-2): ");
+                int col = scanner.nextInt();
+
+                if (board.isCellEmpty(row, col)) {
+                    board.place(row, col, currentPlayer.getMarker());
+
+                    if (board.checkWin(currentPlayer.getMarker())) {
+                        board.print();
+                        System.out.println("Player " + currentPlayer.getMarker() + " wins!");
+                        break;
+                    }
+
+                    if (board.isFull()) {
+                        board.print();
+                        System.out.println("It's a draw!");
+                        break;
+                    }
+
+                    switchCurrentPlayer();
+                } else {
+                    System.out.println("Cell is not empty, try again.");
                 }
+            }
 
-                // Check for draw
-                if (board.isFull()) {
-                    board.print();
-                    System.out.println("It's a draw!");
-                    break;
-                }
-
-                switchCurrentPlayer();
-            } else {
-                System.out.println("Cell is not empty, try again.");
+            System.out.print("Play again? (y/n): ");
+            String response = scanner.next().trim().toLowerCase();
+            if (!response.equals("y")) {
+                System.out.println("Thanks for playing!");
+                break;
             }
         }
     }

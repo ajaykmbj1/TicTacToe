@@ -46,4 +46,37 @@ public class BoardTest {
         assertTrue(board.isFull(), "Board should be full (draw)");
     }
 
+    @Test
+    void testBoardClearResetsBoard() {
+        Board board = new Board();
+        board.place(0, 0, 'X');
+        board.place(1, 1, 'O');
+
+        board.clear();
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                assertEquals(' ', board.getCell(i, j), "Board should be empty after clear()");
+            }
+        }
+    }
+
+    @Test
+    void testPlayAgainWinAfterReset() {
+        Board board = new Board();
+
+        // Erstes Spiel (unentschieden oder beliebig)
+        board.place(0, 0, 'X');
+        board.place(0, 1, 'O');
+        board.place(0, 2, 'X');
+        board.clear(); // Neues Spiel
+
+        // Zweites Spiel → X gewinnt
+        board.place(1, 0, 'X');
+        board.place(1, 1, 'X');
+        board.place(1, 2, 'X');
+
+        assertTrue(board.checkWin('X'), "Player X should win in the second game after board reset");
+    }
+
 }
